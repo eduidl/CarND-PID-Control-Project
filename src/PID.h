@@ -1,17 +1,12 @@
 #ifndef PID_H
 #define PID_H
 
+#include <array>
+
 class PID {
 public:
-  /**
-   * Constructor
-   */
-  PID();
-
-  /**
-   * Destructor.
-   */
-  virtual ~PID();
+  PID() = default;
+  virtual ~PID() = default;
 
   /**
    * Initialize PID.
@@ -29,7 +24,12 @@ public:
    * Calculate the total PID error.
    * @output The total PID error
    */
-  double TotalError();
+  double TotalError() const;
+
+  /**
+   * PID Coefficients
+   */
+  std::array<double, 3> p_;
 
 private:
   /**
@@ -38,13 +38,6 @@ private:
   double p_error_;
   double i_error_;
   double d_error_;
-
-  /**
-   * PID Coefficients
-   */
-  double Kp_;
-  double Ki_;
-  double Kd_;
 };
 
 #endif // PID_H
