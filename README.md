@@ -6,7 +6,7 @@ Self-Driving Car Engineer Nanodegree Program
 ## Dependencies
 
 * cmake >= 3.5
- * All OSes: [click here for installation instructions](https://cmake.org/install/)
+  * All OSes: [click here for installation instructions](https://cmake.org/install/)
 * make >= 4.1(mac, linux), 3.81(Windows)
   * Linux: make is installed by default on most Linux distros
   * Mac: [install Xcode command line tools to get make](https://developer.apple.com/xcode/features/)
@@ -37,62 +37,29 @@ Fellow students have put together a guide to Windows set-up for the project [her
 
 Tips for setting up your environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
 
-## Editor Settings
+## Reflection
 
-We've purposefully kept editor configuration files out of this repo in order to
-keep it as simple and environment agnostic as possible. However, we recommend
-using the following settings:
+### Describe the effect each of the P, I, D components had in your implementation.
 
-* indent using spaces
-* set tab width to 2 spaces (keeps the matrices in source code aligned)
+#### P (Proportional) component
 
-## Code Style
+P component is the product of the constant (which is called the **proportional gain**) and the current error value.  
+If the proportional gain is high, the system can be unstable . And if the proportional gain is too small, the system canb dull.  
 
-Please (do your best to) stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
+#### I (Integral) component
 
-## Project Instructions and Rubric
+I component is proportional to the accumulated error value. This component corrects the systematic bias.
 
-Note: regardless of the changes you make, your project must be buildable using
-cmake and make!
+#### D (Derivative) component
 
-More information is only accessible by people who are already enrolled in Term 2
-of CarND. If you are enrolled, see [the project page](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/f1820894-8322-4bb3-81aa-b26b3c6dcbaf/lessons/e8235395-22dd-4b87-88e0-d108c5e5bbf4/concepts/6a4d8d42-6a04-4aa6-b284-1697c0fd6562)
-for instructions and the project rubric.
+D component is proportional to the slope of the error value. This component accelerates the convergence of error and enhances the system stability.
 
-## Hints!
+### Describe how the final hyperparameters were chosen.
 
-* You don't have to follow this directory structure, but if you do, your work
-  will span all of the .cpp files here. Keep an eye out for TODOs.
-
-## Call for IDE Profiles Pull Requests
-
-Help your fellow students!
-
-We decided to create Makefiles with cmake to keep this project as platform
-agnostic as possible. Similarly, we omitted IDE profiles in order to we ensure
-that students don't feel pressured to use one IDE or another.
-
-However! I'd love to help people get up and running with their IDEs of choice.
-If you've created a profile for an IDE that you think other students would
-appreciate, we'd love to have you add the requisite profile files and
-instructions to ide_profiles/. For example if you wanted to add a VS Code
-profile, you'd add:
-
-* /ide_profiles/vscode/.vscode
-* /ide_profiles/vscode/README.md
-
-The README should explain what the profile does, how to take advantage of it,
-and how to install it.
-
-Frankly, I've never been involved in a project with multiple IDE profiles
-before. I believe the best way to handle this would be to keep them out of the
-repo root to avoid clutter. My expectation is that most profiles will include
-instructions to copy files to a new location to get picked up by the IDE, but
-that's just a guess.
-
-One last note here: regardless of the IDE used, every submitted project must
-still be compilable with cmake and make./
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
-
+- I chosed the hyperparameters by Twiddle algirithm, which is implemented in
+[Twiddle.h](https://github.com/eduidl/CarND-PID-Control-Project/tree/master/src/Twiddle.h).
+- In
+[main.cpp](https://github.com/eduidl/CarND-PID-Control-Project/tree/master/src/main.cpp)
+, if `TWIDDLE` is define as macro constant (which is commented out in
+[main.cpp#L11](https://github.com/eduidl/CarND-PID-Control-Project/tree/master/src/main.cpp#L11)
+), hyperparameters search by Twiddle algorithm is activated.
