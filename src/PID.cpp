@@ -9,7 +9,7 @@ void PID::Init(const double Kp, const double Ki, const double Kd) {
 }
 
 void PID::UpdateError(double cte) {
-  d_error_ = cte - p_error_; // p_error = previous cte
+  d_error_ = cte - p_error_;  // p_error = previous cte
   p_error_ = cte;
   i_error_ += cte;
 }

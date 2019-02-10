@@ -4,7 +4,7 @@
 #include <array>
 
 class PID {
-public:
+ public:
   PID() = default;
   virtual ~PID() = default;
 
@@ -31,7 +31,7 @@ public:
    */
   std::array<double, 3> p_;
 
-private:
+ private:
   /**
    * PID Errors
    */
@@ -40,4 +40,4 @@ private:
   double d_error_;
 };
 
-#endif // PID_H
+#endif  // PID_H

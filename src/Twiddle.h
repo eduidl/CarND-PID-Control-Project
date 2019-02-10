@@ -10,13 +10,13 @@
 #include "PID.h"
 
 class Twiddle {
-public:
+ public:
   Twiddle();
   virtual ~Twiddle() = default;
 
   void Process(PID &pid, const double cte);
 
-private:
+ private:
   std::array<double, 3> dp_;
   double error_;
   double best_error_;
@@ -28,13 +28,17 @@ private:
 };
 
 Twiddle::Twiddle()
-    : dp_({0.01, 0.0001, 0.1}), error_(0),
-      best_error_(std::numeric_limits<double>::max()), tol_(0.0001),
-      n_move_(10), step_(1), iter_(0), first_(true) {}
+    : dp_({0.01, 0.0001, 0.1}),
+      error_(0),
+      best_error_(std::numeric_limits<double>::max()),
+      tol_(0.0001),
+      n_move_(10),
+      step_(1),
+      iter_(0),
+      first_(true) {}
 
 void Twiddle::Process(PID &pid, const double cte) {
-  if (std::accumulate(dp_.begin(), dp_.end(), 0.0) < tol_)
-    return;
+  if (std::accumulate(dp_.begin(), dp_.end(), 0.0) < tol_) return;
 
   error_ += std::pow(cte, 2);
 
@@ -81,4 +85,4 @@ void Twiddle::Process(PID &pid, const double cte) {
   return;
 }
 
-#endif // TWIDDLE_H
+#endif  // TWIDDLE_H

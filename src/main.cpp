@@ -3,10 +3,10 @@
 #include <iostream>
 #include <string>
 
+#include <uWS/uWS.h>
 #include "PID.h"
 #include "Twiddle.h"
 #include "json.hpp"
-#include <uWS/uWS.h>
 
 // #define TWIDDLE
 
@@ -40,8 +40,7 @@ int main() {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
-    if (length <= 2 || data[0] != '4' || data[1] != '2')
-      return;
+    if (length <= 2 || data[0] != '4' || data[1] != '2') return;
 
     const auto s = hasData(std::string(data).substr(0, length));
 
@@ -54,8 +53,7 @@ int main() {
 
     const auto j = json::parse(s);
 
-    if (j[0].get<std::string>() != "telemetry")
-      return;
+    if (j[0].get<std::string>() != "telemetry") return;
 
     // j[1] is the data JSON object
     const auto cte = std::stod(j[1]["cte"].get<std::string>());
@@ -67,8 +65,7 @@ int main() {
     const double steer_value = std::max(std::min(pid.TotalError(), 1.0), -1.0);
 
 #ifdef TWIDDLE
-    if (speed > 20.0)
-      twiddle.Process(pid, cte);
+    if (speed > 20.0) twiddle.Process(pid, cte);
 #endif
 
     json msgJson;
@@ -76,7 +73,7 @@ int main() {
     msgJson["throttle"] = 0.3;
     const auto msg = "42[\"steer\"," + msgJson.dump() + "]";
     ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
-  }); // end h.onMessage
+  });  // end h.onMessage
 
   h.onConnection([&h](uWS::WebSocket<uWS::SERVER>, uWS::HttpRequest) {
     std::cout << "Connected!!!" << std::endl;
